@@ -1,4 +1,4 @@
-clear all
+% clear all
 close all
 clc
 
@@ -113,8 +113,8 @@ freq = linspace(0.9,1.1,101);
 
         fres_ris_ON = 1;
         fres_ris_OFF = 5;
-        chi_ris = 50*ones(size(x_ris));
-        gamma_ris = 0*ones(size(x_ris));
+        chi_ris = 50*rand(size(x_ris));%50
+        gamma_ris = 100*ones(size(x_ris));
 
         if length(chi_ris)~=N_RIS
             disp('Error: x_ris and chi_ris do not have the same length.');
@@ -141,19 +141,19 @@ freq = linspace(0.9,1.1,101);
 
     %% Visualize Dipole Locations
 
-    figure, set(gcf,'pos',[489         173        1020         590]);hold on,box on,
-    plot(x_tx,y_tx,'bo','displayname','TX');
-    plot(x_rx,y_rx,'ro','displayname','RX');
-    plot(x_env,y_env,'k.','displayname','Scat. Env.');
-    plot(x_ris,y_ris,'g.','markersize',7.5,'displayname','RIS');
-    axis equal;
-    xlabel('x [a.u.]');
-    ylabel('y [a.u.]');
-    set(gca,'fontsize',15);
-    xlim([min([x_tx x_rx x_env x_ris])-1 max([x_tx x_rx x_env x_ris])+1]);
-    ylim([min([y_tx y_rx y_env y_ris])-1 max([y_tx y_rx y_env y_ris])+1]);
-    legend('show','location','eastoutside');
-    drawnow;
+%     figure, set(gcf,'pos',[489         173        1020         590]);hold on,box on,
+%     plot(x_tx,y_tx,'bo','displayname','TX');
+%     plot(x_rx,y_rx,'ro','displayname','RX');
+%     plot(x_env,y_env,'k.','displayname','Scat. Env.');
+%     plot(x_ris,y_ris,'g.','markersize',7.5,'displayname','RIS');
+%     axis equal;
+%     xlabel('x [a.u.]');
+%     ylabel('y [a.u.]');
+%     set(gca,'fontsize',15);
+%     xlim([min([x_tx x_rx x_env x_ris])-1 max([x_tx x_rx x_env x_ris])+1]);
+%     ylim([min([y_tx y_rx y_env y_ris])-1 max([y_tx y_rx y_env y_ris])+1]);
+%     legend('show','location','eastoutside');
+%     drawnow;
 
     
 %% EVALUATE CHANNEL MATRIX
