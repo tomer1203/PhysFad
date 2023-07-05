@@ -11,7 +11,7 @@ fres_env_value = 45;
 rea_max = 150;
 
 % decide if the dipole locations shall be plotted in a figure (1=yes; 0=no).
-displaychoice = 0;%1;%
+displaychoice = 1;%1;%
 
 %% DEFINITION OF PHYSFAD PARAMETERS
 

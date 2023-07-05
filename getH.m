@@ -26,7 +26,7 @@ N     = N_T+N_R+N_E+N_RIS;
 
 for ff=1:length(freq)
     
-    disp(['Currently evaluating frequency point ',num2str(ff),' / ',num2str(length(freq)),'.']);
+%     disp(['Currently evaluating frequency point ',num2str(ff),' / ',num2str(length(freq)),'.']);
     
     %% Assemble W
     W=zeros(N,N);

@@ -1,10 +1,9 @@
+
 % clear all
 close all
 clc
 
 disp('Example of a Channel Matrix Evaluation');
-
-
 %% DEFINITION OF PHYSFAD PARAMETERS
 
 freq = linspace(0.9,1.1,101);
@@ -113,8 +112,8 @@ freq = linspace(0.9,1.1,101);
 
         fres_ris_ON = 1;
         fres_ris_OFF = 5;
-        chi_ris = 50*rand(size(x_ris));%50
-        gamma_ris = 100*ones(size(x_ris));
+        chi_ris = 50*ones(size(x_ris));%50
+        gamma_ris = 1*zeros(size(x_ris));
 
         if length(chi_ris)~=N_RIS
             disp('Error: x_ris and chi_ris do not have the same length.');
@@ -163,5 +162,16 @@ freq = linspace(0.9,1.1,101);
                 x_rx,y_rx,fres_rx,chi_rx,gamma_rx,...
                 x_env,y_env,fres_env,chi_env,gamma_env,...
                 x_ris,y_ris,fres_ris,chi_ris,gamma_ris);
+[freq,H2] = getH(freq,...
+                x_tx,y_tx,fres_tx,chi_tx,gamma_tx,...
+                x_rx,y_rx,fres_rx,chi_rx,gamma_rx,...
+                x_env,y_env,fres_env,chi_env,gamma_env,...
+                x_ris,y_ris,fres_ris,chi_ris/15,gamma_ris);
 
-            
+plot(mean(mean(abs(H),2),3));
+hold on;
+plot(mean(mean(abs(H2),2),3));
+H_avg = mean(mean(abs(H),2),3);
+H2_avg = mean(mean(abs(H2),2),3);
+similarity_matrix = (1/101) * H_avg' * H2_avg/mean((H_avg(:).^2+H2_avg(:).^2)/2);
+disp(similarity_matrix(:));
