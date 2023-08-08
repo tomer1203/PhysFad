@@ -195,7 +195,7 @@ for rea=1:rea_max
         %% Visualize Dipole Locations (if desired)
 
         if displaychoice==1
-            figure(1), clf(1); set(gcf,'pos',[489         173        1020         590]);hold on,box on,
+            figure(1), clf(1); hold on,box on,
             plot(x_tx,y_tx,'bo','displayname','TX');
             plot(x_rx,y_rx,'ro','displayname','RX');
             plot(x_env,y_env,'k.','displayname','Scat. Env.');
