@@ -47,7 +47,7 @@ for ff=1:length(freq)
     end
     
     %% Invert W and extract H
-    
+    % load('W_mat.mat','W_mat','y_ris');
     Winv = W^(-1);
     
     V = diag(diag(W))*Winv;

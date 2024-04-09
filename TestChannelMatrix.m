@@ -73,7 +73,7 @@ freq = linspace(0.9,1.1,101);
         %% Scattering Environment
 
         % locations
-        load('ComplexEnclosure.mat')
+        load('ComplexEnclosure2.mat')
 
         if length(x_env)~=length(y_env)
             disp('Error: x_env and y_env do not have the same length.');
@@ -100,8 +100,12 @@ freq = linspace(0.9,1.1,101);
         %% RIS
 
         % locations
-        load('ExampleRIS.mat','x_ris','y_ris');
-        
+        load('ExampleRIS3.mat','x_ris','y_ris');
+%         x_ris = x_ris(1,1:25);
+%         y_ris = y_ris(1,1:25);
+%         save('ExampleRIS3.mat','x_ris','y_ris');
+
+
         if length(x_ris)~=length(y_ris)
             disp('Error: x_ris and y_ris do not have the same length.');
         else
@@ -140,19 +144,19 @@ freq = linspace(0.9,1.1,101);
 
     %% Visualize Dipole Locations
 
-%     figure, set(gcf,'pos',[489         173        1020         590]);hold on,box on,
-%     plot(x_tx,y_tx,'bo','displayname','TX');
-%     plot(x_rx,y_rx,'ro','displayname','RX');
-%     plot(x_env,y_env,'k.','displayname','Scat. Env.');
-%     plot(x_ris,y_ris,'g.','markersize',7.5,'displayname','RIS');
-%     axis equal;
-%     xlabel('x [a.u.]');
-%     ylabel('y [a.u.]');
-%     set(gca,'fontsize',15);
-%     xlim([min([x_tx x_rx x_env x_ris])-1 max([x_tx x_rx x_env x_ris])+1]);
-%     ylim([min([y_tx y_rx y_env y_ris])-1 max([y_tx y_rx y_env y_ris])+1]);
-%     legend('show','location','eastoutside');
-%     drawnow;
+    figure, hold on,box on,
+    plot(x_tx,y_tx,'bo','displayname','TX');
+    plot(x_rx,y_rx,'ro','displayname','RX');
+    plot(x_env,y_env,'k.','displayname','Scat. Env.');
+    plot(x_ris,y_ris,'g.','markersize',7.5,'displayname','RIS');
+    axis equal;
+    xlabel('x [a.u.]');
+    ylabel('y [a.u.]');
+    set(gca,'fontsize',15);
+    xlim([min([x_tx x_rx x_env x_ris])-1 max([x_tx x_rx x_env x_ris])+1]);
+    ylim([min([y_tx y_rx y_env y_ris])-1 max([y_tx y_rx y_env y_ris])+1]);
+    legend('show','location','eastoutside');
+    drawnow;
 
     
 %% EVALUATE CHANNEL MATRIX
@@ -162,6 +166,21 @@ freq = linspace(0.9,1.1,101);
                 x_rx,y_rx,fres_rx,chi_rx,gamma_rx,...
                 x_env,y_env,fres_env,chi_env,gamma_env,...
                 x_ris,y_ris,fres_ris,chi_ris,gamma_ris);
+%% RIS Configuration
+        
+        config_ris = round(rand(1,N_RIS));
+        clear fres_ris;
+        for cc=1:length(config_ris)
+            if config_ris(cc)==0
+                fres_ris(cc) = fres_ris_OFF;
+            elseif config_ris(cc)==1
+                fres_ris(cc) = fres_ris_ON;
+            end
+        end
+
+        if length(fres_ris)~=N_RIS
+            disp('Error: x_ris and fres_ris do not have the same length.');
+        end
 [freq,H2] = getH(freq,...
                 x_tx,y_tx,fres_tx,chi_tx,gamma_tx,...
                 x_rx,y_rx,fres_rx,chi_rx,gamma_rx,...
