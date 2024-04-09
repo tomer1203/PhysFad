@@ -27,8 +27,10 @@ N     = N_T+N_R+N_E+N_RIS;
 for ff=1:length(freq)
     
 %     disp(['Currently evaluating frequency point ',num2str(ff),' / ',num2str(length(freq)),'.']);
+
     X_diff = zeros(N,N);
     Y_diff = zeros(N,N);
+
     for l=1:N
         xl_vec = x(l)*ones(1,N);
         yl_vec = y(l)*ones(1,N);
@@ -37,6 +39,7 @@ for ff=1:length(freq)
     end
 
     BesselInp= k(ff)*sqrt(X_diff.^2+Y_diff.^2);
+
     % BesselInp= sqrt(X_diff.^2+Y_diff.^2);
     BesselOut = besselh(0,2,BesselInp);
     % jbessel = besselj(0,BesselInp);
@@ -44,11 +47,11 @@ for ff=1:length(freq)
     % ybessel = (besselj(epsilon,BesselInp)*cos(epsilon*pi)-besselj(-epsilon,BesselInp))/sin(epsilon*pi);
     % BesselOut = besselj(0,BesselInp) - 1i*ybessel;
 
-    
     %% Assemble W
     
     % off-diagonal entries of W are the negative free-space Green's functions between ith and jth dipoles
     W = 1i*(k(ff)^2/4)*BesselOut;
+
     % if isequal(W,squeeze(Wtest(ff,:,:)))
     %     disp("equal")
     % else
@@ -65,8 +68,7 @@ for ff=1:length(freq)
         % end
     end
     
-    %% Invert W and extract H
-    % load('W_mat.mat','W_mat');
+
     Winv = W^(-1);
     
     V = diag(diag(W))*Winv;
